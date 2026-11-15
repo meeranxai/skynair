@@ -49,7 +49,7 @@ jobs:
       run: flutter clean
     
     - name: Build APK with retry
-      uses: nick-fields/retry-action@v3
+      uses: nick-fields/retry@v2
       with:
         timeout_minutes: 30
         max_attempts: 3
