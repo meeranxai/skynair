@@ -1,0 +1,55 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Helper function
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Profile pictures - any authenticated user can read, only owner can write
+    match /profile_pictures/{userId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Post images - any authenticated user can read, only owner can write
+    match /post_images/{userId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Story images - any authenticated user can read, only owner can write  
+    match /story_images/{userId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Stories (new path) - any authenticated user can read, only owner can write
+    match /stories/{userId}/{filename} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId);
+    }
+
+    // Message attachments - participants can read, sender can write
+    match /message_attachments/{chatId}/{filename} {
+      // For read, we'd ideally check Firestore chat participants, but cross-service rules have limits.
+      // For now, restrict write significantly.
+      allow read: if isAuthenticated();
+      allow write: if isAuthenticated(); // Should ideally verify participation
+    }
+
+    // Catch-all for any other files (more restrictive)
+    match /{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.email == "meeran01110rafiq@gmail.com";
+    }
+  }
+}

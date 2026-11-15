@@ -1,0 +1,223 @@
+╔════════════════════════════════════════════════════════════════╗
+║           SKYNAIRE - APKPure Submission Checklist              ║
+╚════════════════════════════════════════════════════════════════╝
+
+📱 APP BUILD
+────────────────────────────────────────────────────────────────
+[ ] Run: prepare_apkpure_release.bat
+[ ] Test universal APK on device
+[ ] Test split APKs on different devices
+[ ] Verify app name shows as "Skynaire"
+[ ] Verify app icon displays correctly
+[ ] Check app version (1.0.0)
+[ ] Ensure no debug/test code
+
+🖼️ GRAPHICS & MEDIA
+────────────────────────────────────────────────────────────────
+[ ] App Icon (512x512 PNG)
+    Location: android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+
+[ ] Feature Graphic (1024x500 PNG/JPG)
+    Create: App name + key features showcase
+
+[ ] Screenshots (8-10 images, 1080x1920)
+    1. [ ] Login screen (Email/Password)
+    2. [ ] Home feed with articles
+    3. [ ] Create article page
+    4. [ ] User profile with articles
+    5. [ ] Explore page (articles only)
+    6. [ ] Article detail with comments
+    7. [ ] Comments section
+    8. [ ] Settings page (with Phase 1 info)
+    9. [ ] Dark mode (optional)
+    10. [ ] Profile editing (optional)
+
+📝 DESCRIPTIONS
+────────────────────────────────────────────────────────────────
+[ ] App name: Skynaire
+[ ] Short description (80 chars)
+[ ] Full description (English) - See APKPURE_LISTING_PACKAGE.md
+[ ] Full description (Urdu) - Optional
+[ ] Keywords/Tags prepared
+[ ] What's New section (changelog)
+
+📄 LEGAL DOCUMENTS
+────────────────────────────────────────────────────────────────
+[ ] Privacy Policy (privacy_policy.html)
+[ ] Terms of Service (terms_of_service.html)
+[ ] Privacy Policy URL ready
+[ ] Terms of Service URL ready
+[ ] Developer contact email
+[ ] Support email
+
+⚙️ APP SETTINGS
+────────────────────────────────────────────────────────────────
+[ ] Category: Social
+[ ] Content Rating: Teen (13+)
+[ ] Price: Free
+[ ] In-app purchases: None (Phase 1)
+[ ] Ads: None (Phase 1)
+
+🔐 PERMISSIONS
+────────────────────────────────────────────────────────────────
+Required:
+[ ] INTERNET
+[ ] ACCESS_NETWORK_STATE
+[ ] CAMERA
+[ ] READ_EXTERNAL_STORAGE
+[ ] WRITE_EXTERNAL_STORAGE
+[ ] VIBRATE
+[ ] RECEIVE_BOOT_COMPLETED
+[ ] WAKE_LOCK
+
+Optional:
+[ ] ACCESS_FINE_LOCATION (future)
+[ ] RECORD_AUDIO (future)
+
+✅ TESTING
+────────────────────────────────────────────────────────────────
+[ ] Login/Signup works (Email/Password only)
+[ ] Create article works
+[ ] Upload images to articles works
+[ ] Profile editing works
+[ ] Follow/Unfollow works
+[ ] Block/Unblock works (instant updates!)
+[ ] Comments work
+[ ] Like articles works
+[ ] Save articles works
+[ ] Explore page filters articles only
+[ ] Content moderation blocks restricted words
+[ ] Settings accessible
+[ ] No Messages icon visible
+[ ] No Share buttons visible
+[ ] No crashes on startup
+[ ] No critical bugs
+[ ] Tested on Android 7.0+
+[ ] Tested on different screen sizes
+
+🌐 ONLINE PRESENCE
+────────────────────────────────────────────────────────────────
+[ ] Privacy policy hosted online
+[ ] Terms of service hosted online
+[ ] Support email active
+[ ] Developer website (optional)
+[ ] Social media accounts (optional)
+
+📊 APKPure ACCOUNT
+────────────────────────────────────────────────────────────────
+[ ] APKPure developer account created
+[ ] Email verified
+[ ] Developer profile complete
+[ ] Payment info (if needed)
+
+📤 SUBMISSION
+────────────────────────────────────────────────────────────────
+[ ] All files prepared
+[ ] All information reviewed
+[ ] Screenshots in correct order
+[ ] Descriptions proofread
+[ ] Legal documents linked
+[ ] APK tested one final time
+[ ] Submit to APKPure
+[ ] Wait for approval (24-48h)
+
+📱 POST-LAUNCH
+────────────────────────────────────────────────────────────────
+[ ] Monitor reviews
+[ ] Respond to user feedback
+[ ] Fix reported bugs
+[ ] Plan first update
+[ ] Promote on social media
+[ ] Track downloads
+[ ] Collect user feedback
+
+╔════════════════════════════════════════════════════════════════╗
+║                    IMPORTANT NOTES                             ║
+╚════════════════════════════════════════════════════════════════╝
+
+📌 APK Files Location:
+   build/app/outputs/flutter-apk/
+
+📌 Recommended Upload:
+   - Upload all split APKs (armeabi-v7a, arm64-v8a, x86_64)
+   - OR upload universal APK (larger size)
+
+📌 Privacy Policy & Terms:
+   - Must be hosted online (not just in app)
+   - Use GitHub Pages, Firebase Hosting, or your website
+   - URLs must be accessible without login
+
+📌 Screenshots Tips:
+   - Use real content (not lorem ipsum)
+   - Show app's best features
+   - Clean, professional look
+   - No personal information visible
+   - Consistent device frame (optional)
+
+📌 Description Tips:
+   - Highlight unique features
+   - Use bullet points
+   - Keep it concise
+   - Include keywords naturally
+   - Mention "no ads" if true
+
+📌 Common Rejection Reasons:
+   ✗ Low-quality screenshots
+   ✗ Missing privacy policy
+   ✗ Misleading description
+   ✗ App crashes on launch
+   ✗ Inappropriate content
+   ✗ Copyright violations
+
+📌 Approval Timeline:
+   - Initial review: 24-48 hours
+   - Updates: 12-24 hours
+   - Rejections: Fix and resubmit
+
+📌 After Approval:
+   - Share APKPure link
+   - Promote on social media
+   - Collect user reviews
+   - Plan regular updates
+   - Monitor crash reports
+
+╔════════════════════════════════════════════════════════════════╗
+║                    QUICK COMMANDS                              ║
+╚════════════════════════════════════════════════════════════════╝
+
+Build APK:
+> prepare_apkpure_release.bat
+
+Test on device:
+> adb install build\app\outputs\flutter-apk\app-release.apk
+
+Check APK size:
+> dir build\app\outputs\flutter-apk\
+
+View app info:
+> flutter pub run flutter_launcher_icons:main
+
+╔════════════════════════════════════════════════════════════════╗
+║                    SUPPORT CONTACTS                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+Developer: Meeran Xai
+Email: meeranxai@example.com
+GitHub: @meeranxai
+Project: https://github.com/meeranxai/mygnetwork
+
+APKPure Support: support@apkpure.com
+APKPure Developer Portal: https://developer.apkpure.com
+
+╔════════════════════════════════════════════════════════════════╗
+║                    GOOD LUCK! 🚀                               ║
+╚════════════════════════════════════════════════════════════════╝
+
+Remember:
+✓ Test thoroughly before submission
+✓ Be honest in descriptions
+✓ Respond to user feedback
+✓ Keep app updated
+✓ Follow APKPure guidelines
+
+Your app is ready for the world! 🌟

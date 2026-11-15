@@ -1,0 +1,41 @@
+{
+    "dart.flutterHotReloadOnSave": "always",
+    "dart.flutterHotRestartOnSave": "never",
+    "dart.previewFlutterUiGuides": true,
+    "dart.previewFlutterUiGuidesCustomTracking": true,
+    "dart.flutterOutline": true,
+    "dart.flutterCreateAndroidLanguage": "kotlin",
+    "dart.flutterCreateIOSLanguage": "swift",
+    "dart.debugExternalPackageLibraries": true,
+    "dart.debugSdkLibraries": false,
+    "dart.evaluateGettersInDebugViews": true,
+    "dart.showInspectorNotificationsForWidgetErrors": true,
+    "dart.flutterShowWebServerDevice": true,
+    "dart.openDevTools": "flutter",
+    "dart.flutterScreenshotPath": "./screenshots",
+    "files.associations": {
+        "*.dart": "dart"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit"
+    },
+    "flutter.experimentalRefactors": true,
+    "flutter.showInspectorNotificationsForWidgetErrors": true,
+    "flutter.hotReloadOnSave": "always",
+    "flutter.enableWidgetGuides": true,
+    "flutter.previewEmbeddedWidgets": true,
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggest.snippetsPreventQuickSuggestions": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off"
+    },
+    "kiroAgent.configureMCP": "Disabled"
+}

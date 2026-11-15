@@ -1,0 +1,37 @@
+WARNING: A restricted method in java.lang.System has been called
+WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/C:/Users/Rajput%20com/.gradle/wrapper/dists/gradle-8.14-all/c2qonpi39x1mddn7hk5gh9iqj/gradle-8.14/lib/native-platform-0.22-milestone-28.jar)
+WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+
+Initialized native services in: C:\Users\Rajput com\.gradle\native
+Initialized jansi services in: C:\Users\Rajput com\.gradle\native
+Found daemon DaemonInfo{pid=1416, address=[26565bf7-75ca-495d-b39f-fa0a0bf80496 port:52203, addresses:[/127.0.0.1]], state=Idle, lastBusy=1768927290731, context=DefaultDaemonContext[uid=03a8f652-9e13-44e9-a862-c17ecb2def6a,javaHome=E:\New folder\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\Rajput com\.gradle\daemon,pid=1416,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=2G,-XX:+HeapDumpOnOutOfMemoryError,-XX:+UseParallelGC,-Xmx4G,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Java\jdk-25 (no JDK specified, using current Java home), daemonOpts=[-XX:MaxMetaspaceSize=2G, -XX:+HeapDumpOnOutOfMemoryError, -XX:+UseParallelGC, -Xmx4G, -Dfile.encoding=UTF-8, -Duser.country=US, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=03a8f652-9e13-44e9-a862-c17ecb2def6a,javaHome=E:\New folder\jbr,javaVersion=21,javaVendor=JetBrains s.r.o.,daemonRegistryDir=C:\Users\Rajput com\.gradle\daemon,pid=1416,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=2G,-XX:+HeapDumpOnOutOfMemoryError,-XX:+UseParallelGC,-Xmx4G,-Dfile.encoding=UTF-8,-Duser.country=US,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 13032). The daemon log file: C:\Users\Rajput com\.gradle\daemon\8.14\daemon-13032.out.log
+Starting 10th build in daemon [uptime: 24 mins 38.039 secs, performance: 100%, GC rate: 0.17/s, heap usage: 0% of 2.6 GiB, non-heap usage: 2% of 2 GiB]
+Using 4 worker leases.
+Configuration on demand is an incubating feature.
+Now considering [E:\skynaire\android] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Caching disabled for Kotlin DSL script compilation (Settings/TopLevel/stage1) because:
+  Build cache is disabled
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+25.0.1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 2s
+Watched directory hierarchies: []

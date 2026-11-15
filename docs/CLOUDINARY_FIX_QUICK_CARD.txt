@@ -1,0 +1,103 @@
+╔════════════════════════════════════════════════════════════════╗
+║                  CLOUDINARY 401 FIX - QUICK CARD               ║
+╚════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────┐
+│ PROBLEM: HTTP 401 Unauthorized                                 │
+│ CAUSE: Preset in "Signed" mode (needs "Unsigned")             │
+│ TIME TO FIX: 2 minutes                                         │
+└────────────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════╗
+║                         EXACT STEPS                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+  1. Open: https://cloudinary.com/console
+     └─ Login with your account
+
+  2. Click: Settings (⚙️ gear icon)
+     └─ Then click: Upload tab
+
+  3. Scroll to: "Upload presets" section
+     └─ Find: g_network_preset
+
+  4. Click on: g_network_preset
+     └─ Settings page will open
+
+  5. Find: "Signing Mode" option
+     └─ Change from: ● Signed
+     └─ Change to:   ● Unsigned
+
+  6. Click: Save button (bottom of page)
+     └─ Wait for: "Preset updated successfully"
+
+  7. Restart app and test upload
+     └─ Should work now! ✅
+
+╔════════════════════════════════════════════════════════════════╗
+║                      YOUR SETTINGS                             ║
+╚════════════════════════════════════════════════════════════════╝
+
+  Cloud Name:    dqhkwsqhi
+  Preset Name:   g_network_preset
+  Required Mode: Unsigned ✓
+
+╔════════════════════════════════════════════════════════════════╗
+║                    VISUAL REFERENCE                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+  BEFORE (Wrong):
+  ┌──────────────────────────────────────┐
+  │ Signing Mode: ● Signed  ○ Unsigned   │  ← Change this!
+  └──────────────────────────────────────┘
+
+  AFTER (Correct):
+  ┌──────────────────────────────────────┐
+  │ Signing Mode: ○ Signed  ● Unsigned   │  ← Should look like this
+  └──────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════╗
+║                      TEST UPLOAD                               ║
+╚════════════════════════════════════════════════════════════════╝
+
+  After changing to Unsigned:
+
+  1. Run: flutter run
+  2. Open app
+  3. Edit profile
+  4. Upload picture
+  5. Should work! ✅
+
+╔════════════════════════════════════════════════════════════════╗
+║                    IF STILL NOT WORKING                        ║
+╚════════════════════════════════════════════════════════════════╝
+
+  ☐ Preset saved in dashboard?
+  ☐ Shows "Unsigned" when reopened?
+  ☐ App completely restarted?
+  ☐ Internet working?
+  ☐ VPN disabled?
+
+╔════════════════════════════════════════════════════════════════╗
+║                      HELP RESOURCES                            ║
+╚════════════════════════════════════════════════════════════════╝
+
+  Urdu Guide:     CLOUDINARY_401_FIX_URDU.md
+  English Guide:  CLOUDINARY_PRESET_FIX_STEPS.md
+  Full Details:   FIX_CLOUDINARY_401_ERROR.md
+  
+  Auto Fix:       fix_cloudinary_401.bat
+  Test Upload:    test_cloudinary_upload.bat
+
+╔════════════════════════════════════════════════════════════════╗
+║                         SUCCESS!                               ║
+╚════════════════════════════════════════════════════════════════╝
+
+  Before: HTTP 401 Unauthorized ❌
+  After:  Upload successful ✅
+
+  Time: 2 minutes | Difficulty: Easy ⭐
+
+═══════════════════════════════════════════════════════════════════
+
+Keep this card open while making the change! 📋

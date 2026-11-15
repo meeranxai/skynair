@@ -1,0 +1,118 @@
+═══════════════════════════════════════════════════════════════
+                    7 MISSING FIRESTORE INDEXES
+                         Quick Reference
+═══════════════════════════════════════════════════════════════
+
+INDEX 1: Notifications - Unread Filter
+───────────────────────────────────────────────────────────────
+Collection:  notifications
+Field 1:     toUserId        (Ascending)
+Field 2:     isRead          (Ascending)
+Purpose:     Filter unread notifications
+
+
+INDEX 2: Notifications - Type Filter
+───────────────────────────────────────────────────────────────
+Collection:  notifications
+Field 1:     type            (Ascending)
+Field 2:     fromUserId      (Ascending)
+Field 3:     toUserId        (Ascending)
+Purpose:     Filter by notification type
+
+
+INDEX 3: Notifications - Post Specific
+───────────────────────────────────────────────────────────────
+Collection:  notifications
+Field 1:     type            (Ascending)
+Field 2:     fromUserId      (Ascending)
+Field 3:     toUserId        (Ascending)
+Field 4:     postId          (Ascending)
+Purpose:     Filter notifications for specific post
+
+
+INDEX 4: Comments - Replies
+───────────────────────────────────────────────────────────────
+Collection:  comments
+Field 1:     parentCommentId (Ascending)
+Field 2:     createdAt       (Ascending)
+Purpose:     Nested comments / replies
+
+
+INDEX 5: Comments - User History
+───────────────────────────────────────────────────────────────
+Collection:  comments
+Field 1:     authorId        (Ascending)
+Field 2:     createdAt       (Descending)
+Purpose:     User's comment history
+
+
+INDEX 6: Stories - Highlights
+───────────────────────────────────────────────────────────────
+Collection:  stories
+Field 1:     userId          (Ascending)
+Field 2:     isHighlight     (Ascending)
+Field 3:     createdAt       (Descending)
+Purpose:     Story highlights feature
+
+
+INDEX 7: Stories - Expiry
+───────────────────────────────────────────────────────────────
+Collection:  stories
+Field 1:     expiresAt       (Ascending)
+Field 2:     createdAt       (Descending)
+Purpose:     Expired stories cleanup
+
+
+═══════════════════════════════════════════════════════════════
+                         PRIORITY ORDER
+═══════════════════════════════════════════════════════════════
+
+HIGH PRIORITY (Create First):
+  ✓ Index 1 - Unread notifications
+  ✓ Index 4 - Comment replies
+
+MEDIUM PRIORITY:
+  ✓ Index 2 - Notification type filter
+  ✓ Index 6 - Story highlights
+
+LOW PRIORITY (Optional):
+  ○ Index 3 - Notification with post
+  ○ Index 5 - User comment history
+  ○ Index 7 - Story expiry
+
+
+═══════════════════════════════════════════════════════════════
+                      QUICK DEPLOY COMMAND
+═══════════════════════════════════════════════════════════════
+
+Instead of manual creation, run:
+
+    firebase deploy --only firestore:indexes
+
+Or:
+
+    deploy_indexes.bat
+
+This will create all 7 indexes automatically!
+
+
+═══════════════════════════════════════════════════════════════
+                         TIME ESTIMATE
+═══════════════════════════════════════════════════════════════
+
+Manual Creation:  ~1 hour (5-10 min per index)
+Auto Deploy:      ~15 minutes (all indexes together)
+
+Recommendation: Use auto deploy! 🚀
+
+
+═══════════════════════════════════════════════════════════════
+                      FIREBASE CONSOLE URL
+═══════════════════════════════════════════════════════════════
+
+https://console.firebase.google.com/
+
+Navigate to: Firestore Database → Indexes → Create Index
+
+
+═══════════════════════════════════════════════════════════════

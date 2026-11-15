@@ -1,0 +1,66 @@
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE related
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS related
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Logs
+*.log
+
+# Node modules (if any)
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Generated files
+*.g.dart
+*.freezed.dart
+*.mocks.dart
+
+# Platform specific build files
+android/
+ios/
+linux/
+macos/
+windows/
+
+# Test files
+test/
+test_driver/
+integration_test/
+
+# Coverage
+coverage/
+
+# Batch files
+*.bat
+
+# Firebase
+firebase_app_id_file.json
+google-services.json
+GoogleService-Info.plist

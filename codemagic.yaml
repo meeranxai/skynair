@@ -1,0 +1,50 @@
+workflows:
+  android-workflow:
+    name: G-Network Android Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      vars:
+        PACKAGE_NAME: "com.example.social_media_app"
+        # Supabase Configuration
+        SUPABASE_URL: "https://rniqhvmtezowdbabhogz.supabase.co"
+        SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuaXFodm10ZXpvd2RiYWJob2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczNjg4MDQsImV4cCI6MjA4Mjk0NDgwNH0.aqsGQ_SUU_cL-_gOQqQNV3p6tYW8D8IGe24O6TmJPRg"
+        SUPABASE_STORAGE_BUCKET: "images"
+        # Cloudinary Configuration
+        CLOUDINARY_CLOUD_NAME: "RootAPI"
+        CLOUDINARY_API_KEY: "542941586524339"
+        CLOUDINARY_API_SECRET: "1UBRhZkcCF6Ol2D2s032D6QwcaU"
+        CLOUDINARY_UPLOAD_PRESET: "social_media_upload"
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+          source: true
+        - pattern: 'master'
+          include: true
+          source: true
+    scripts:
+      - name: Set up local.properties
+        script: | 
+          echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
+      - name: Get Flutter packages
+        script: | 
+          flutter packages pub get
+      - name: Build APK with Flutter
+        script: | 
+          flutter build apk --release --dart-define=SUPABASE_URL=$SUPABASE_URL --dart-define=SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY --dart-define=CLOUDINARY_CLOUD_NAME=$CLOUDINARY_CLOUD_NAME --dart-define=CLOUDINARY_UPLOAD_PRESET=$CLOUDINARY_UPLOAD_PRESET
+    artifacts:
+      - build/**/outputs/**/*.apk
+      - build/**/outputs/**/mapping.txt
+    publishing:
+      email:
+        recipients:
+          - build@gnetwork.app
+        notify:
+          success: true
+          failure: true

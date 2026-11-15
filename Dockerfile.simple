@@ -1,0 +1,56 @@
+# Use the official Flutter image
+FROM ghcr.io/cirruslabs/flutter:stable
+
+# Set the working directory
+WORKDIR /app
+
+# Copy pubspec files
+COPY pubspec.yaml ./
+
+# Get Flutter dependencies
+RUN flutter pub get
+
+# Copy the rest of the application
+COPY . .
+
+# Generate code
+RUN flutter packages pub run build_runner build --delete-conflicting-outputs
+
+# Build the web app
+RUN flutter build web --release
+
+# Use nginx to serve the web app
+FROM nginx:alpine
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Remove default nginx config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy the built web app to nginx
+COPY --from=0 /app/build/web /usr/share/nginx/html
+
+# Create simple nginx config
+RUN echo 'server { \
+    listen 80; \
+    server_name _; \
+    root /usr/share/nginx/html; \
+    index index.html; \
+    location / { \
+        try_files $uri $uri/ /index.html; \
+    } \
+    location = /health { \
+        return 200 "healthy\\n"; \
+        add_header Content-Type text/plain; \
+    } \
+}' > /etc/nginx/conf.d/default.conf
+
+# Create health file
+RUN echo "healthy" > /usr/share/nginx/html/health
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

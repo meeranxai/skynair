@@ -1,0 +1,38 @@
+{
+  "name": "skynaire-app",
+  "version": "1.0.0",
+  "description": "Skynaire - A modern social networking platform built with Flutter and Node.js",
+  "main": "server-final.js",
+  "scripts": {
+    "start": "node server-final.js",
+    "build": "flutter build web --release",
+    "dev": "flutter run -d chrome --web-port=3000",
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": [
+    "flutter",
+    "social-media",
+    "firebase",
+    "nodejs",
+    "web-app"
+  ],
+  "author": "Meeran Xai",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "cors": "^2.8.5",
+    "serve-static": "^1.15.0",
+    "socket.io": "^4.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meeranxai/mygnetwork.git"
+  },
+  "homepage": "https://github.com/meeranxai/mygnetwork#readme"
+}

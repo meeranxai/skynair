@@ -1,0 +1,58 @@
+# Multi-stage build: Flutter build + Node.js runtime
+FROM ghcr.io/cirruslabs/flutter:stable AS flutter-build
+
+# Fix git ownership issues for Flutter SDK
+RUN git config --global --add safe.directory /sdks/flutter
+
+# Set the working directory
+WORKDIR /app
+
+# Copy pubspec files
+COPY pubspec.yaml ./
+
+# Get Flutter dependencies
+RUN flutter pub get
+
+# Copy the rest of the application
+COPY . .
+
+# Generate code
+RUN flutter packages pub run build_runner build --delete-conflicting-outputs
+
+# Build the web app (removed --web-renderer flag as it's not supported)
+RUN flutter build web --release
+
+# Production stage with Node.js
+FROM node:18-alpine
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install Node.js dependencies
+RUN npm install --production
+
+# Copy the built Flutter web app
+COPY --from=flutter-build /app/build/web ./build/web
+
+# Copy the Node.js server
+COPY server-final.js ./
+
+# Create health check script
+RUN echo '#!/bin/sh\nPORT=${PORT:-3000}\ncurl -f http://localhost:$PORT/health || exit 1' > /usr/local/bin/healthcheck.sh && \
+    chmod +x /usr/local/bin/healthcheck.sh
+
+# Expose port (Railway will set PORT env var)
+EXPOSE 3000
+
+# Add health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD /usr/local/bin/healthcheck.sh
+
+# Start the Node.js server
+CMD ["node", "server-final.js"]

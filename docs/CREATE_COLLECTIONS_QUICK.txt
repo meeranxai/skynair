@@ -1,0 +1,90 @@
+✅ FIRESTORE COLLECTIONS CREATE KARNA - QUICK GUIDE
+===================================================
+
+COLLECTIONS CHAHIYE:
+--------------------
+1. follows
+2. blocks
+
+QUICK STEPS:
+------------
+
+1. FIREBASE CONSOLE:
+   https://console.firebase.google.com
+   > Select: g-network-community
+   > Firestore Database
+
+2. CREATE "follows" COLLECTION:
+   > Start collection
+   > Collection ID: follows
+   > Next
+   
+   Add Document:
+   - followerId: string = "test123"
+   - followingId: string = "test456"
+   - createdAt: timestamp = (now)
+   
+   > Save
+
+3. CREATE "blocks" COLLECTION:
+   > Start collection
+   > Collection ID: blocks
+   > Next
+   
+   Add Document:
+   - blockerId: string = "test123"
+   - blockedId: string = "test789"
+   - createdAt: timestamp = (now)
+   
+   > Save
+
+4. VERIFY:
+   Firestore Database mein check karein:
+   ✅ follows collection exists
+   ✅ blocks collection exists
+
+5. APP RESTART:
+   Console mein: R
+
+6. TEST:
+   - User profile par jao
+   - Follow button dikhna chahiye
+   - Click karo
+   - Work karna chahiye
+
+DOCUMENT STRUCTURE:
+-------------------
+
+follows:
+{
+  followerId: "user_id",
+  followingId: "user_id",
+  createdAt: Timestamp
+}
+
+blocks:
+{
+  blockerId: "user_id",
+  blockedId: "user_id",
+  createdAt: Timestamp
+}
+
+NOTES:
+------
+- Collection names lowercase: "follows", "blocks"
+- Test documents delete kar sakte hain baad mein
+- Empty collections bhi OK hain
+- App automatically documents add karega
+
+AFTER CREATING:
+---------------
+1. Hot restart: R
+2. Test follow button
+3. Check Firestore for new documents
+
+FILES:
+------
+✅ CREATE_FIRESTORE_COLLECTIONS_URDU.md - Detailed guide
+✅ CREATE_COLLECTIONS_QUICK.txt - This file
+
+READY! 🚀

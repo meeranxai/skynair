@@ -1,0 +1,86 @@
+========================================
+SUPABASE 403 ERROR - QUICK FIX
+========================================
+
+PROBLEM: No users in Supabase!
+SOLUTION: Create user + Add policies
+
+========================================
+STEP 1: CREATE USER (2 minutes)
+========================================
+
+1. Open: https://supabase.com/dashboard
+2. Click: Authentication → Users
+3. Click: "Add user" button
+4. Enter:
+   - Email: test@example.com
+   - Password: Test123456
+   - ✅ Auto Confirm User
+5. Click: "Create user"
+
+✅ User created!
+
+========================================
+STEP 2: ADD POLICIES (1 minute)
+========================================
+
+1. Click: SQL Editor (left sidebar)
+2. Click: "New query"
+3. Copy-paste: SUPABASE_COMPLETE_SETUP.sql
+4. Click: "Run" button
+
+✅ Policies added!
+
+========================================
+STEP 3: TEST IN APP (3 minutes)
+========================================
+
+1. Run: flutter run
+2. Login with: test@example.com / Test123456
+3. Go to: Profile page
+4. Click: Edit profile → Change photo
+5. Upload: Any image
+
+✅ Should work without 403 error!
+
+========================================
+VERIFICATION
+========================================
+
+If upload succeeds:
+✅ Problem fixed!
+
+If 403 error still appears:
+1. Check user logged in:
+   print(Supabase.instance.client.auth.currentUser?.id);
+   
+2. Check bucket exists:
+   Dashboard → Storage → Buckets → "images"
+   
+3. Run: test_supabase_user_create.bat
+
+========================================
+FILES TO USE
+========================================
+
+📄 SUPABASE_COMPLETE_SETUP.sql
+   → Copy-paste into SQL Editor
+
+📄 SUPABASE_403_FINAL_FIX_URDU.md
+   → Complete guide in Urdu
+
+📄 test_supabase_user_create.bat
+   → Step-by-step test script
+
+📄 SUPABASE_USER_CREATE_URDU.md
+   → Detailed user creation guide
+
+========================================
+TOTAL TIME: ~6 minutes
+========================================
+
+Step 1: 2 min (Create user)
+Step 2: 1 min (Add policies)
+Step 3: 3 min (Test in app)
+
+========================================

@@ -1,0 +1,137 @@
+=================================================================
+SUPABASE 403 ERROR - QUICK FIX CARD (Jan 2026)
+=================================================================
+
+PROBLEM: StorageException (403): new row violates row level security policy
+
+=================================================================
+QUICK DIAGNOSIS (30 seconds)
+=================================================================
+
+1. Run in Supabase SQL Editor:
+   SELECT auth.uid(), auth.role();
+   
+   ✅ Returns UUID + "authenticated" → User OK
+   ❌ Returns NULL → Login issue
+
+2. Run in Supabase SQL Editor:
+   SELECT COUNT(*) FROM pg_policies 
+   WHERE schemaname='storage' AND tablename='objects';
+   
+   ✅ Returns 4 or more → Policies exist
+   ❌ Returns 0 → No policies!
+
+3. Check Flutter code:
+   Search for: "metadata:"
+   
+   ✅ Found → Owner metadata set
+   ❌ Not found → Add owner metadata
+
+=================================================================
+QUICK FIX (5 minutes)
+=================================================================
+
+STEP 1: Run in SQL Editor
+--------------------------
+ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Allow authenticated upload"
+ON storage.objects FOR INSERT TO authenticated
+WITH CHECK (bucket_id = 'images');
+
+CREATE POLICY "Allow public read"
+ON storage.objects FOR SELECT TO public
+USING (bucket_id = 'images');
+
+CREATE POLICY "Allow user update"
+ON storage.objects FOR UPDATE TO authenticated
+USING (bucket_id = 'images' AND owner = auth.uid());
+
+CREATE POLICY "Allow user delete"
+ON storage.objects FOR DELETE TO authenticated
+USING (bucket_id = 'images' AND owner = auth.uid());
+
+
+STEP 2: Update Flutter Code
+----------------------------
+// Add owner metadata
+final userId = _client.auth.currentUser?.id;
+
+await _client.storage.from('images').uploadBinary(
+  filePath,
+  bytes,
+  fileOptions: FileOptions(
+    contentType: 'image/jpeg',
+    upsert: true,  // ← Add this
+    metadata: userId != null ? {'owner': userId} : null,  // ← Add this
+  ),
+);
+
+
+STEP 3: Test
+------------
+flutter clean
+flutter pub get
+flutter run
+
+=================================================================
+COMMON MISTAKES
+=================================================================
+
+❌ upsert: false + same filename → 403 on second upload
+✅ upsert: true OR unique filename
+
+❌ Path: 'profile_pictures/file.jpg' with policy checking [1] = auth.uid()
+✅ Path: '{userId}/file.jpg' to match policy
+
+❌ No owner metadata
+✅ metadata: {'owner': userId}
+
+❌ Bucket is private
+✅ Bucket is public (for read access)
+
+=================================================================
+VERIFICATION QUERIES
+=================================================================
+
+-- Check user
+SELECT auth.uid() as user_id, auth.role() as role;
+
+-- Check policies
+SELECT policyname, cmd FROM pg_policies 
+WHERE schemaname='storage' AND tablename='objects';
+
+-- Check bucket
+SELECT name, public FROM storage.buckets WHERE name='images';
+
+-- Check existing files
+SELECT name, owner FROM storage.objects 
+WHERE bucket_id='images' LIMIT 5;
+
+=================================================================
+STILL NOT WORKING?
+=================================================================
+
+1. Check Logs:
+   Dashboard → Logs → Storage Logs → Filter: 403
+
+2. Test Manual Upload:
+   Dashboard → Storage → images → Upload File
+   If fails → Policy issue
+   If works → Code issue
+
+3. Verify Path:
+   Print the exact path in Flutter
+   Compare with policy pattern
+
+4. Check File Size:
+   Bucket might have size limit
+   Check: storage.buckets.file_size_limit
+
+=================================================================
+DETAILED GUIDE
+=================================================================
+
+See: SUPABASE_403_DEBUG_COMPLETE_GUIDE_2026.md
+
+=================================================================

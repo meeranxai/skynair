@@ -1,0 +1,19 @@
+[phases.setup]
+nixPkgs = ["flutter", "nodejs_18", "dart"]
+
+[phases.build]
+cmds = [
+  "flutter --version",
+  "flutter config --no-analytics",
+  "flutter pub get",
+  "flutter packages pub run build_runner build --delete-conflicting-outputs",
+  "flutter build web --release",
+  "npm install --production"
+]
+
+[phases.start]
+cmd = "node server-final.js"
+
+[variables]
+NODE_ENV = "production"
+FLUTTER_WEB = "true"

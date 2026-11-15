@@ -1,0 +1,125 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build APK
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+    
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+        cache: true
+    
+    - name: Configure Gradle properties
+      run: |
+        mkdir -p ~/.gradle
+        echo "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m -XX:+HeapDumpOnOutOfMemoryError" >> ~/.gradle/gradle.properties
+        echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+        echo "org.gradle.parallel=true" >> ~/.gradle/gradle.properties
+        echo "org.gradle.caching=true" >> ~/.gradle/gradle.properties
+        echo "org.gradle.configureondemand=true" >> ~/.gradle/gradle.properties
+    
+    - name: Get dependencies
+      run: flutter pub get
+    
+    - name: Generate code with build_runner
+      run: dart run build_runner build --delete-conflicting-outputs
+    
+    - name: Analyze code
+      run: flutter analyze
+      continue-on-error: true
+    
+    - name: Clean build
+      run: flutter clean
+    
+    - name: Build APK with retry
+      uses: nick-fields/retry-action@v3
+      with:
+        timeout_minutes: 30
+        max_attempts: 3
+        retry_wait_seconds: 30
+        command: flutter build apk --release --verbose
+    
+    - name: Build Split APKs
+      run: flutter build apk --split-per-abi --release
+    
+    - name: Get APK info
+      run: |
+        echo "APK Size:"
+        ls -lh build/app/outputs/flutter-apk/
+    
+    - name: Upload Universal APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-universal
+        path: build/app/outputs/flutter-apk/app-release.apk
+        retention-days: 30
+    
+    - name: Upload ARM64 APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-arm64
+        path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+        retention-days: 30
+    
+    - name: Upload ARMv7 APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-armv7
+        path: build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
+        retention-days: 30
+    
+    - name: Upload x86_64 APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release-x86_64
+        path: build/app/outputs/flutter-apk/app-x86_64-release.apk
+        retention-days: 30
+    
+    - name: Create Release Info
+      run: |
+        echo "# G Network APK Build" > release-info.txt
+        echo "" >> release-info.txt
+        echo "**Build Date**: $(date)" >> release-info.txt
+        echo "**Commit**: ${{ github.sha }}" >> release-info.txt
+        echo "**Branch**: ${{ github.ref_name }}" >> release-info.txt
+        echo "" >> release-info.txt
+        echo "## APK Files" >> release-info.txt
+        echo "" >> release-info.txt
+        echo "- **Universal APK**: Works on all devices (larger size)" >> release-info.txt
+        echo "- **ARM64 APK**: For modern 64-bit devices (recommended)" >> release-info.txt
+        echo "- **ARMv7 APK**: For older 32-bit devices" >> release-info.txt
+        echo "- **x86_64 APK**: For Intel-based devices (rare)" >> release-info.txt
+        echo "" >> release-info.txt
+        echo "## Installation" >> release-info.txt
+        echo "" >> release-info.txt
+        echo "1. Download the APK file" >> release-info.txt
+        echo "2. Transfer to your Android device" >> release-info.txt
+        echo "3. Enable 'Install from unknown sources' in Settings" >> release-info.txt
+        echo "4. Open the APK file to install" >> release-info.txt
+        echo "" >> release-info.txt
+        echo "## APK Sizes" >> release-info.txt
+        ls -lh build/app/outputs/flutter-apk/*.apk >> release-info.txt
+    
+    - name: Upload Release Info
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-info
+        path: release-info.txt
+        retention-days: 30
